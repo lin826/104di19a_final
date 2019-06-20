@@ -23,25 +23,26 @@ s_default = """
 
 
 class Parser:
-    s_to_parse = "" 
+    s_list = []
+    information = {
+        'date':'', 'time':'',
+        'phone':'', 'address':'',
+        'email':''
+    }
 
     def __init__(self, s = s_default):
-        self.s_to_parse = s
+        set_s(s)
+
+    def __parse(self):
+        for line in self.s_list:
+            if ('路' in line and '號' in line):
+                information['address'] = line
+            elif ('@' in line):
+                information['email'] = line
 
     def set_s(self, s):
-        self.s_to_parse = s
-
-    def get_date_time(self):
-        return None
-
-    def get_phone(self):
-        return None
-
-    def get_address(self):
-        return None
-
-    def get_email(self):
-        return None
+        self.s_list = s.split('\n')
+        self.__parse()
 
 if __name__ == '__main__':
     p = Parser()
